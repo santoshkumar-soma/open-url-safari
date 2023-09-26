@@ -73,12 +73,6 @@ jobs:
           CODE_SIGN_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Development" | awk -F '"' '{print $2}' | tail -1)
           echo "::set-output name=code_signing_identity::$CODE_SIGN_IDENTITY"
 
-      - name: Set iOS Deployment Target
-        run: |
-          NEW_DEPLOYMENT_TARGET=14.0
-          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string $NEW_DEPLOYMENT_TARGET openUrlInSafari.xcodeproj/project.pbxproj
-          cat openUrlInSafari.xcodeproj/project.pbxproj
-
       - name: Build iOS App
         run: |
             xcodebuild 
