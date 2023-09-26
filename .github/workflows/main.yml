@@ -1,0 +1,25 @@
+name: Build and Distribute iOS Open URL Safari App
+
+on:
+    workflow_dispatch:
+  #push:
+  #saving for comments
+   # branches:
+    #  - main
+
+jobs:
+  build_and_distribute:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Xcode
+        uses: actions/setup-xcode@v2
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Dependencies
+        run: |
+          pod install
