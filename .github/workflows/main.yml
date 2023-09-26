@@ -73,6 +73,17 @@ jobs:
           CODE_SIGN_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Development" | awk -F '"' '{print $2}' | tail -1)
           echo "::set-output name=code_signing_identity::$CODE_SIGN_IDENTITY"
 
+      - name: Build iOS App
+        run: |
+          xcodebuild clean build \
+            -workspace ITSM\ \&\ ITAM.xcworkspace \
+            -scheme "ITSM & ITAM" \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath $HOME/"ITSM & ITAM.archive" \
+            CODE_SIGN_STYLE="Manual" \
+            CODE_SIGN_IDENTITY="${{ steps.get_code_signing_identity.outputs.code_signing_identity }}"
+
       - name: Cleanup
         run: |
           # Printing the Variables to clean up the secrets
