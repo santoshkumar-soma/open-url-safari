@@ -38,6 +38,11 @@ jobs:
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
+          - name: Set Environment Variable
+          run: echo "CERTIFICATE_PATH=$CERTIFICATE_PATH" >> $GITHUB_ENV
+          run: echo "PP_PATH=$PP_PATH" >> $GITHUB_ENV
+          run: echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
+
           # Import certificate and provisioning profile from secrets
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
@@ -60,9 +65,6 @@ jobs:
         run: |
           # Printing the Variables to clean up the secrets
            # Access the paths from job-level outputs
-          CERTIFICATE_PATH="${{ steps.import_certificate.outputs.certificate_path }}"
-          PP_PATH="${{ steps.import_certificate.outputs.pp_path }}"
-          KEYCHAIN_PATH="${{ steps.import_certificate.outputs.keychain_path }}"
           echo -n "$CERTIFICATE_PATH" 
           echo -n "$PP_PATH"
           echo -n "$KEYCHAIN_PATH"
