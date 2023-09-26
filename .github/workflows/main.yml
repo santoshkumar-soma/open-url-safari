@@ -39,9 +39,9 @@ jobs:
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
           - name: Set Environment Variable
-          run: echo "CERTIFICATE_PATH=$CERTIFICATE_PATH" >> $GITHUB_ENV
-          run: echo "PP_PATH=$PP_PATH" >> $GITHUB_ENV
-          run: echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
+          echo "CERTIFICATE_PATH=$CERTIFICATE_PATH" >> $GITHUB_ENV
+          echo "PP_PATH=$PP_PATH" >> $GITHUB_ENV
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
 
           # Import certificate and provisioning profile from secrets
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
@@ -70,7 +70,7 @@ jobs:
           echo -n "$KEYCHAIN_PATH"
           ls -lf $CERTIFICATE_PATH
           ls -lf $PP_PATH
-          ls -lf KEYCHAIN_PATH
+          ls -lf $KEYCHAIN_PATH
           rm $CERTIFICATE_PATH  # Remove the certificate file
           rm $PP_PATH           # Remove the provisioning profile file
           security delete-keychain $KEYCHAIN_PATH  # Remove the temporary keychain
