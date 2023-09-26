@@ -57,6 +57,13 @@ jobs:
 
       - name: Cleanup
         run: |
+          # Printing the Variables to clean up the secrets
+          echo -n "$CERTIFICATE_PATH" 
+          echo -n "$PP_PATH"
+          echo -n "$KEYCHAIN_PATH"
+          ls -lf $CERTIFICATE_PATH
+          ls -lf $PP_PATH
+          ls -lf KEYCHAIN_PATH
           rm $CERTIFICATE_PATH  # Remove the certificate file
           rm $PP_PATH           # Remove the provisioning profile file
           security delete-keychain $KEYCHAIN_PATH  # Remove the temporary keychain
