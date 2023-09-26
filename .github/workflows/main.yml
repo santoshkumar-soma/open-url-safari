@@ -76,9 +76,9 @@ jobs:
           ls -lf $CERTIFICATE_PATH
           ls -lf $PP_PATH
           ls -lf $KEYCHAIN_PATH
-          rm $CERTIFICATE_PATH  # Remove the certificate file
-          rm $PP_PATH           # Remove the provisioning profile file
+          rm -rf $CERTIFICATE_PATH  # Remove the certificate file
+          rm -rf $PP_PATH           # Remove the provisioning profile file
           security delete-keychain $KEYCHAIN_PATH  # Remove the temporary keychain
-          rm $KEYCHAIN_PATH     # Remove the keychain file
+          rm -rf $KEYCHAIN_PATH     # Remove the keychain file
          
       
