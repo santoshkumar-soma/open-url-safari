@@ -66,6 +66,13 @@ jobs:
             env
             cat $GITHUB_ENV
 
+      - name: Get Code Signing Identity
+        id: get_code_signing_identity
+        run: |
+          # Retrieve the code signing identity from your Keychain
+          CODE_SIGN_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Development" | awk -F '"' '{print $2}' | tail -1)
+          echo "::set-output name=code_signing_identity::$CODE_SIGN_IDENTITY"
+
       - name: Cleanup
         run: |
           # Printing the Variables to clean up the secrets
