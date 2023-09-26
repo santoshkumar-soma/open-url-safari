@@ -86,6 +86,7 @@ jobs:
 
 
       - name: Cleanup
+        if: ${{ always() }}
         run: |
           # Printing the Variables to clean up the secrets
            # Access the paths from job-level outputs
