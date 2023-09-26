@@ -75,14 +75,15 @@ jobs:
 
       - name: Build iOS App
         run: |
-          xcodebuild clean build \
-            -workspace ITSM\ \&\ ITAM.xcworkspace \
-            -scheme "ITSM & ITAM" \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath $HOME/"ITSM & ITAM.archive" \
-            CODE_SIGN_STYLE="Manual" \
-            CODE_SIGN_IDENTITY="${{ steps.get_code_signing_identity.outputs.code_signing_identity }}"
+            xcodebuild 
+             -project openUrlInSafari.xcodeproj \
+             -target openUrlInSafari \
+             -sdk iphoneos \
+             -configuration Release \
+             -archivePath $HOME/"ITSM & ITAM.archive" \
+             CODE_SIGN_STYLE="Manual" \
+             CODE_SIGN_IDENTITY="${{ steps.get_code_signing_identity.outputs.code_signing_identity }}" 
+
 
       - name: Cleanup
         run: |
