@@ -25,6 +25,7 @@ jobs:
          # pod install
 
       - name: Install the Apple certificate and provisioning profile
+        id: import_certificate
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
@@ -58,6 +59,10 @@ jobs:
       - name: Cleanup
         run: |
           # Printing the Variables to clean up the secrets
+           # Access the paths from job-level outputs
+          CERTIFICATE_PATH="${{ steps.import_certificate.outputs.certificate_path }}"
+          PP_PATH="${{ steps.import_certificate.outputs.pp_path }}"
+          KEYCHAIN_PATH="${{ steps.import_certificate.outputs.keychain_path }}"
           echo -n "$CERTIFICATE_PATH" 
           echo -n "$PP_PATH"
           echo -n "$KEYCHAIN_PATH"
