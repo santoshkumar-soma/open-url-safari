@@ -38,11 +38,6 @@ jobs:
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
-          - name: Set Environment Variable
-          echo "CERTIFICATE_PATH=$CERTIFICATE_PATH" >> $GITHUB_ENV
-          echo "PP_PATH=$PP_PATH" >> $GITHUB_ENV
-          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
-
           # Import certificate and provisioning profile from secrets
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
@@ -60,6 +55,16 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+          # name: Set Environment Variable
+          echo "CERTIFICATE_PATH=$CERTIFICATE_PATH" >> $GITHUB_ENV
+          echo "PP_PATH=$PP_PATH" >> $GITHUB_ENV
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
+
+
+      - name: List GitHub Environment Variables
+        run: |
+            env
+            cat $GITHUB_ENV
 
       - name: Cleanup
         run: |
